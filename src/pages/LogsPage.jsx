@@ -26,10 +26,8 @@ export default function LogsPage() {
             headers: { Authorization: `Bearer ${token}` }
         }).then(res => {
             setUserStats(res.data);
-            console.log("userStats:", res.data);
         });
     }, []);
-
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -60,7 +58,6 @@ export default function LogsPage() {
         return () => clearInterval(interval);
     }, [shownAlertIds]);
 
-
     const retrainModel = async () => {
         if (!confirm("Ты точно хочешь переобучить модель?")) return;
         try {
@@ -76,28 +73,82 @@ export default function LogsPage() {
     const filteredGroupedLogs = groupedLogs.filter(log => !filter || log.risk_level === filter);
 
     return (
-        <div>
-            <h2>Журнал действий пользователей (админ)</h2>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                minHeight: '100vh',
+                background: '#f7f7fa',
+                fontFamily: 'Segoe UI, sans-serif'
+            }}
+        >
+            <h2 style={{ textAlign: 'center', marginTop: 32, marginBottom: 16, fontSize: 32 }}>
+                Журнал действий пользователей (админ)
+            </h2>
 
-            <div style={{ width: 600, marginBottom: 20 }}>
-                <ActionChart data={stats} height={250} width={600} />
-                <UserActionChart userStats={userStats} />
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'flex-start',
+                    gap: 32,            // расстояние между графиками
+                    width: '100%',
+                    marginBottom: 20,
+                    flexWrap: 'wrap'    // чтобы на маленьких экранах переносились вниз
+                }}
+            >
+                <div style={{ flex: 1, minWidth: 350, maxWidth: 600 }}>
+                    <ActionChart data={stats} height={260} width={600} />
+                </div>
+                <div style={{ flex: 1, minWidth: 350, maxWidth: 600 }}>
+                    <UserActionChart userStats={userStats} />
+                </div>
             </div>
 
-            <button onClick={retrainModel}>Обучить модель</button>
-            <select onChange={e => setFilter(e.target.value)} value={filter} style={{marginLeft:10}}>
-                <option value="">Все уровни риска</option>
-                <option value="normal">Normal</option>
-                <option value="suspicious">Suspicious</option>
-                <option value="critical">Critical</option>
-            </select>
 
-            <h3 style={{marginTop: 25}}>Групповые логи (массовые действия)</h3>
-            <GroupedLogTable logs={filteredGroupedLogs} />
+            <div style={{ marginBottom: 24 }}>
+                <button
+                    onClick={retrainModel}
+                    style={{
+                        marginRight: 10,
+                        padding: '8px 20px',
+                        background: '#1976d2',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: 6,
+                        cursor: 'pointer'
+                    }}
+                >
+                    Обучить модель
+                </button>
+                <select
+                    onChange={e => setFilter(e.target.value)}
+                    value={filter}
+                    style={{
+                        marginLeft: 10,
+                        padding: 8,
+                        borderRadius: 6,
+                        border: '1px solid #ccc',
+                        background: '#fff'
+                    }}
+                >
+                    <option value="">Все уровни риска</option>
+                    <option value="normal">Normal</option>
+                    <option value="suspicious">Suspicious</option>
+                    <option value="critical">Critical</option>
+                </select>
+            </div>
 
-            <h3 style={{marginTop: 30}}>Обычные логи (единичные действия)</h3>
-            <LogTable logs={filteredLogs} hideRiskActions />
+            <h3 style={{marginTop: 25, textAlign: 'center', fontSize: 24}}>Групповые логи (массовые действия)</h3>
+            <div style={{ width: '98%', maxWidth: 1200, margin: '0 auto' }}>
+                <GroupedLogTable logs={filteredGroupedLogs} />
+            </div>
 
+            <h3 style={{marginTop: 30, textAlign: 'center', fontSize: 24}}>Обычные логи (единичные действия)</h3>
+            <div style={{ width: '98%', maxWidth: 1200, margin: '0 auto', marginBottom: 32 }}>
+                <LogTable logs={filteredLogs} hideRiskActions />
+            </div>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "https://4ec0-2a03-32c0-2f-8a24-4055-ee36-ba4a-d629.ngrok-free.app/api",
 });
 
 API.interceptors.request.use((req) => {

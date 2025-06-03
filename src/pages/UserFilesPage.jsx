@@ -13,6 +13,11 @@ export default function UserFilesPage() {
     };
 
     useEffect(() => {
+        API.get("/files/").then(res => {
+            console.log("files API response:", res.data);
+            setFiles(res.data);
+        });
+
         fetchFiles();
     }, []);
 
@@ -103,7 +108,7 @@ export default function UserFilesPage() {
     const viewFile = async (id) => {
         const token = localStorage.getItem('token');
         const res = await fetch(`${API.defaults.baseURL}/files/${id}/view/`, {
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { 'Authorization': `Bearer ${token}`, 'ngrok-skip-browser-warning': 'true' }
         });
         if (!res.ok) {
             toast.error("Ошибка просмотра: " + res.statusText);

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter } from 'react-router-dom';
 import LoginPage from './pages/LoginPage.jsx';
 import LogsPage from './pages/LogsPage.jsx';
 import { ToastContainer } from 'react-toastify';
@@ -14,7 +14,7 @@ import './index.css';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
+    <HashRouter>
         <UserProvider>
             <Header />
             <Routes>
@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             </Routes>
             <ToastContainer position="top-right" autoClose={8000} />
         </UserProvider>
-    </BrowserRouter>
+    </HashRouter>
 );
 
 

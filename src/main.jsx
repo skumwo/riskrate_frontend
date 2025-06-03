@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage.jsx';
 import LogsPage from './pages/LogsPage.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from "./components/Header";
-import { UserProvider } from "./context/UserContext.jsx"; // 👈 Добавили
+import { UserProvider } from "./context/UserContext.jsx";
 import UserFilesPage from './pages/UserFilesPage.jsx';
 import GroupedActionsPage from './pages/GroupedActionsPage.jsx';
 import RegisterPage from "./pages/RegisterPage.jsx";

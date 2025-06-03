@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import API from "../api.js";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext.jsx";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
     const { setUser } = useContext(UserContext);
@@ -110,9 +111,9 @@ export default function LoginPage() {
                 >Войти</button>
                 <p style={{ fontSize: 15, marginTop: 18 }}>
                     Нет аккаунта?{" "}
-                    <a href="/register" style={{ color: "#3d5afe", textDecoration: "underline" }}>
+                    <Link to="/register" style={{ color: "#3d5afe", textDecoration: "underline" }}>
                         Зарегистрируйтесь
-                    </a>
+                    </Link>
                 </p>
             </form>
         </div>
